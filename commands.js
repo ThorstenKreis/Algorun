@@ -4,11 +4,14 @@ import { loadLevel} from './game.js';
 export let cursor = { x: 0, y: 0, dir: 'up' };
 export let TILE_TYPES = { VOID: 0, PATH: 1, GOAL: 9 }
 
+let executionAborted = false;
 const COMMAND_SYMBOLS = {
   "move forward": '↑',
   "turn left": '↺',
   "turn right": '↻',
   "function 1": "F1",
+  "function 2": "F2",
+  "function 3": "F3",
   wait: '⏳'
 };
 
@@ -74,65 +77,81 @@ export function rotateCursor(turn) {
 }
 
 // Befehlswarteschlange
-export const commandQueue = [];
+export const commandQueueF1 = [];
+export const commandQueueF2 = [];
+export const commandQueueF3 = [];
 
 // Befehl hinzufügen
 export function addCommand(commandObj) {
-    if (commandQueue.length >= currentLevel.maxCommands) {
-    console.log("Maximale Anzahl an Befehlen erreicht.");
-    return; // Keine weiteren Befehle erlauben
+  const lst = [commandQueueF1, commandQueueF2, commandQueueF3];
+
+  for (let i = 0; i < currentLevel.maxCommands.length; i++) {
+    
+    if (lst[i].length < currentLevel.maxCommands[i]) {
+      
+      lst[i].push(commandObj);
+      updateCommandList(i);
+      break;
+    }
+
+    }
+
   }
-  commandQueue.push(commandObj);
-  updateCommandList();
-}
+
+
 
 // Befehlsliste im DOM aktualisieren
-export function updateCommandList() {
-  const cells = document.querySelectorAll('#command-list .command-cell');
+export function updateCommandList(funcIndex) {
+  
+  const lst = [commandQueueF1, commandQueueF2, commandQueueF3];
+  
+  const queue = lst[funcIndex];
+  
+  const funcId = `F${funcIndex + 1}`;
+  const cells = document.querySelectorAll(`#command-list${funcId} .command-cell`);
+  
 
   cells.forEach((cell, index) => {
-    const command = commandQueue[index];
+    const command = queue[index];
     if (command) {
       const { cmd, condition } = command;
 
       // Symbol setzen
       cell.textContent = COMMAND_SYMBOLS[cmd] || '?';
 
-      // Vorherige Farbklassen entfernen
+      // Farbklassen entfernen und neue setzen
       cell.classList.remove('cond-grey', 'cond-green', 'cond-red', 'cond-blue');
-
-      // Neue Farbklasse hinzufügen
       if (condition) {
         cell.classList.add(`cond-${condition}`);
       }
     } else {
+      // Zelle zurücksetzen
       cell.textContent = '';
-      cell.className = 'command-cell'; // reset
+      cell.className = 'command-cell';
     }
   });
 }
 
-// Befehle nacheinander ausführen (kann man erweitern mit async/warten)
-export function executeCommands() {
-  for (const cmd of commandQueue) {
-    executeCommand(cmd);
-  }
-}
+
 
 // Einzelnen Befehl ausführen
-export function executeCommand(commandObj) {
+export async function executeCommand(commandObj) {
+  console.log(commandObj)
   let cmd, condition;
-
+  
   if (typeof commandObj === "string") {
     cmd = commandObj;
-    condition = null;
+    condition = commandObj.condition;
+    console.log(cmd , "ist string")
   } else if (commandObj && typeof commandObj === "object") {
     cmd = commandObj.cmd;
     condition = commandObj.condition;
+    console.log(cmd , condition, "sind nicht string")
   } else {
     console.warn("Ungültiger Befehl:", commandObj);
     return;
   }
+  console.log(cmd, condition)
   switch (cmd.toLowerCase()) {
     case 'move forward':
       moveForward();
@@ -144,15 +163,25 @@ export function executeCommand(commandObj) {
       rotateCursor('right');
       break;
     case 'function 1':
-      executeCommandsStepByStep(commandQueue);
+      await executeCommandsStepByStep(commandQueueF1);
+      break;
+    case 'function 2':
+      await executeCommandsStepByStep(commandQueueF2);
+      break;
+    case 'function 3':
+      await executeCommandsStepByStep(commandQueueF3);
       break;
   }
 }
 
 // Befehlsliste zurücksetzen
 export function resetCommands() {
-  commandQueue.length = 0;
-  updateCommandList();
+  const queues = [commandQueueF1, commandQueueF2, commandQueueF3];
+
+  queues.forEach((queue, index) => {
+    queue.length = 0;
+    updateCommandList(index);
+  });
   cursor.x = currentLevel.start.x;
   cursor.y = currentLevel.start.y;
   cursor.dir = currentLevel.start.dir;
@@ -182,29 +211,33 @@ export function delay(ms) {
 
 export async function executeCommandsStepByStep(commandList) {
   for (let i = 0; i < commandList.length; i++) {
-    const { cmd, condition } = commandList[i];
+    if (executionAborted) return;
+    const commandObj = commandList[i];
+    const { cmd, condition } = commandObj;
 
     // Wenn eine Bedingung gesetzt ist und sie NICHT zutrifft → überspringen
     if (condition && condition !== 'grey' && !checkCondition(condition)) {
       continue;
     }
-
-    await executeCommand(cmd);
-
+    
     const currentTile = getTileAt(cursor.x, cursor.y);
     console.log(currentTile);
 
-    if (currentTile === TILE_TYPES.VOID) {
+        if (currentTile === TILE_TYPES.VOID) {
       console.log("Abbruch: Cursor im Void");
+      executionAborted = true;
       break;
     }
 
     if (currentTile === TILE_TYPES.GOAL) {
       showVictoryMessage();
+      executionAborted = true;
       break;
     }
 
     await delay(executionSpeed);
+    await executeCommand(commandObj);
+
   }
 }
 
@@ -289,4 +322,5 @@ function checkCondition(condition) {
     default:
       return false;
   }
+}
 }
