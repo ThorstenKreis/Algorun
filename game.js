@@ -152,4 +152,3 @@ document.querySelectorAll("#custom-condition-picker .color-option").forEach(opti
     updateButtonColors(selectedCondition);
   });
 });
-});
