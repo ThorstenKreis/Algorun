@@ -14,7 +14,7 @@ const colorMap = {
   blue: "#2196f3"
 };
 
-let currentLevelKey = 'level1';
+let currentLevelKey = 'level5';
 
 
 export function loadLevel(levelKey) {
@@ -67,15 +67,19 @@ document.getElementById("speed").addEventListener("change", (e) => {
 
 
 
-function generateCommandCells(count) {
-  const list = document.getElementById("command-list");
-  list.innerHTML = ''; // Vorherige löschen
+function generateCommandCells(lst) {
 
-  for (let i = 0; i < count; i++) {
-    const span = document.createElement("span");
-    span.classList.add("command-cell");
-    list.appendChild(span);
-  }
+  for (let i = 1; i <= lst.length; i++) {
+
+    const list = document.getElementById(`command-listF${i}`);
+    list.innerHTML = ''; // Vorherige löschen
+
+    for (let j = 0; j < lst[i-1]; j++) {
+      const span = document.createElement("span");
+      span.classList.add("command-cell");
+      list.appendChild(span);
+    }
+}
 } 
 
 
@@ -98,7 +102,7 @@ document.querySelectorAll('#command-buttons button').forEach(button => {
 });
 
 document.getElementById('start-button').addEventListener('click', () => {
-  commands.executeCommandsStepByStep(commands.commandQueue);
+  commands.executeCommandsStepByStep(commands.commandQueueF1);
 });
 
 document.getElementById('reset-button').addEventListener('click', () => {
@@ -121,7 +125,7 @@ function updateButtonColors(colorKey) {
   const color = colorMap[colorKey] || "#ccc";
   document.querySelectorAll('#command-buttons button').forEach(button => {
     button.style.backgroundColor = color;
-    button.style.color = "#fff";
+    button.style.color = "#000000";
   });
 }
 
@@ -147,4 +151,5 @@ document.querySelectorAll("#custom-condition-picker .color-option").forEach(opti
     selectedCondition = option.dataset.value;
     updateButtonColors(selectedCondition);
   });
+});
 });
