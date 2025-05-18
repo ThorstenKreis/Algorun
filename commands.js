@@ -323,4 +323,3 @@ function checkCondition(condition) {
       return false;
   }
 }
-}
