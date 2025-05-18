@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="./style/main.css" />
+    <link rel="stylesheet" href="style/main.css" />
     <title>Document</title>
   </head>
   <body>
@@ -30,6 +30,8 @@
                   <button data-cmd="turn left">↪️</button>
                   <button data-cmd="turn right">↩️</button>
                   <button data-cmd="function 1">F1</button>
+                  <button data-cmd="function 2">F2</button>
+                  <button data-cmd="function 3">F3</button>
               </div>
               <div class="conditionals">
                 <label for="condition">Bedingung:</label>
@@ -45,7 +47,11 @@
             <div class="function_display" id="function_input">
               <div class="top-row">
                 <p>F1:</p>
-                <div id="command-list"></div>
+                <div id="command-listF1"></div>
+                <p>F2:</p>
+                <div id="command-listF2"></div>
+                <p>F3:</p>
+                <div id="command-listF3"></div>
               </div>
 
               <button id="start-button">▶️ Start</button>
@@ -57,6 +63,7 @@
     <div id="message" style="display: none"></div>
     <button id="next-level-button" disabled>Nächstes Level</button>
 
-    <script type="module" src="./game.js"></script>
+    <script type="module" src="game.js"></script>
   </body>
 </html>
+
