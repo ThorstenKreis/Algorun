@@ -4,8 +4,6 @@
 ALGORUN ist ein interaktives Puzzle-Spiel, das spielerisch algorithmisches Denken und Grundlagen der Programmierung vermittelt. Steuere deinen Charakter durch bunte Level mit Hilfe von Befehlen, Bedingungen und Funktionsaufrufen. Ziel ist es, durch clevere Kombination der zur Verfügung stehenden Kommandos das Ziel zu erreichen – ohne ins Leere zu laufen!
 
 🎮 Features
-Visuelle Programmierung per Drag & Drop
-
 Mehrere Funktionsbereiche (F1, F2, F3) zur Strukturierung deines Algorithmus
 
 Bedingte Befehle (z. B. nur bei grüner Farbe)
