@@ -14,15 +14,18 @@ const colorMap = {
   blue: "#2196f3"
 };
 
-let currentLevelKey = 'level5';
+let currentLevelKey = 1;
 
 
 export function loadLevel(levelKey) {
   const levelData = levels[levelKey];
-  commands.setCurrentLevel(levelData); 
+  commands.setCurrentLevel(levelData);
   renderLevel(levelData.map, levelData.start);
-  generateCommandCells(levelData.maxCommands); 
+  generateCommandCells(levelData.maxCommands);
 }
+
+window.loadLevel = loadLevel;
+
 
 function renderLevel(level, start) {
   gameRoot.innerHTML = ""; // altes Level löschen
@@ -44,7 +47,7 @@ function renderLevel(level, start) {
         case 4: cellDiv.classList.add("field-blue"); break;
         case 9: cellDiv.classList.add("goal"); break;
       }
-      
+
       // optional: Koordinaten als Datenattribut
       cellDiv.dataset.x = x;
       cellDiv.dataset.y = y;
@@ -52,13 +55,13 @@ function renderLevel(level, start) {
 
 
       gameRoot.appendChild(cellDiv);
-      
+
     });
   });
-      commands.cursor.x = start.x;
-      commands.cursor.y = start.y;
-      commands.cursor.dir = start.dir;
-      commands.updateCursorPosition();
+  commands.cursor.x = start.x;
+  commands.cursor.y = start.y;
+  commands.cursor.dir = start.dir;
+  commands.updateCursorPosition();
 }
 
 document.getElementById("speed").addEventListener("change", (e) => {
@@ -74,13 +77,13 @@ function generateCommandCells(lst) {
     const list = document.getElementById(`command-listF${i}`);
     list.innerHTML = ''; // Vorherige löschen
 
-    for (let j = 0; j < lst[i-1]; j++) {
+    for (let j = 0; j < lst[i - 1]; j++) {
       const span = document.createElement("span");
       span.classList.add("command-cell");
       list.appendChild(span);
     }
+  }
 }
-} 
 
 
 
@@ -92,7 +95,7 @@ loadLevel(currentLevelKey);
 
 
 
-  
+
 
 document.querySelectorAll('#command-buttons button').forEach(button => {
   button.addEventListener('click', () => {
@@ -112,6 +115,7 @@ document.getElementById('reset-button').addEventListener('click', () => {
 
 
 nextLevelButton.addEventListener('click', () => {
+  commands.resetCommands();
   commands.loadNextLevel();
 });
 
