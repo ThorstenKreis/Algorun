@@ -1,1 +1,1 @@
-[# Projekte](https://thorstenkreis.github.io/Algorun/)
+[Hier geht´s zum Spiel](https://thorstenkreis.github.io/Algorun/)
