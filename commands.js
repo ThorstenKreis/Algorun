@@ -1,5 +1,5 @@
 import { levels } from './levels.js';
-import { loadLevel} from './game.js';
+import { loadLevel } from './game.js';
 // Cursor-Objekt hält Position und Richtung
 export let cursor = { x: 0, y: 0, dir: 'up' };
 export let TILE_TYPES = { VOID: 0, PATH: 1, GOAL: 9 }
@@ -17,14 +17,14 @@ const COMMAND_SYMBOLS = {
 
 const levelKeys = Object.keys(levels);
 let currentLevelIndex = 0;
-let executionSpeed = 500;
+let executionSpeed = 300;
 
 // Cursor nach vorne bewegen
 export function moveForward() {
   switch (cursor.dir) {
-    case 'up':    cursor.y = Math.max(0, cursor.y - 1); break;
-    case 'down':  cursor.y = cursor.y + 1; break;       // evtl. max für Spielfeldgrenze
-    case 'left':  cursor.x = Math.max(0, cursor.x - 1); break;
+    case 'up': cursor.y = Math.max(0, cursor.y - 1); break;
+    case 'down': cursor.y = cursor.y + 1; break;       // evtl. max für Spielfeldgrenze
+    case 'left': cursor.x = Math.max(0, cursor.x - 1); break;
     case 'right': cursor.x = cursor.x + 1; break;       // evtl. max für Spielfeldgrenze
   }
 
@@ -56,7 +56,7 @@ export function setCursor(x, y, dir) {
 // Cursor-Symbol basierend auf Richtung
 export function getCursorSymbol(dir) {
   return '➤';
-  
+
 }
 
 // Cursor-Rotation
@@ -64,11 +64,11 @@ export function rotate(direction, turn) {
   const dirs = ['up', 'right', 'down', 'left'];
   let idx = dirs.indexOf(direction);
 
-  if (turn === 'left')  idx = (idx + 3) % 4;
+  if (turn === 'left') idx = (idx + 3) % 4;
   if (turn === 'right') idx = (idx + 1) % 4;
 
   return dirs[idx];
-} 
+}
 
 // Helper, um den Cursor selbst zu rotieren und Zustand zu aktualisieren
 export function rotateCursor(turn) {
@@ -86,30 +86,30 @@ export function addCommand(commandObj) {
   const lst = [commandQueueF1, commandQueueF2, commandQueueF3];
 
   for (let i = 0; i < currentLevel.maxCommands.length; i++) {
-    
+
     if (lst[i].length < currentLevel.maxCommands[i]) {
-      
+
       lst[i].push(commandObj);
       updateCommandList(i);
       break;
     }
 
-    }
-
   }
+
+}
 
 
 
 // Befehlsliste im DOM aktualisieren
 export function updateCommandList(funcIndex) {
-  
+
   const lst = [commandQueueF1, commandQueueF2, commandQueueF3];
-  
+
   const queue = lst[funcIndex];
-  
+
   const funcId = `F${funcIndex + 1}`;
   const cells = document.querySelectorAll(`#command-list${funcId} .command-cell`);
-  
+
 
   cells.forEach((cell, index) => {
     const command = queue[index];
@@ -138,15 +138,16 @@ export function updateCommandList(funcIndex) {
 export async function executeCommand(commandObj) {
   console.log(commandObj)
   let cmd, condition;
-  
+
   if (typeof commandObj === "string") {
     cmd = commandObj;
-    condition = commandObj.condition;
-    console.log(cmd , "ist string")
+    condition = undefined;
+
+
   } else if (commandObj && typeof commandObj === "object") {
     cmd = commandObj.cmd;
     condition = commandObj.condition;
-    console.log(cmd , condition, "sind nicht string")
+
   } else {
     console.warn("Ungültiger Befehl:", commandObj);
     return;
@@ -154,13 +155,13 @@ export async function executeCommand(commandObj) {
   console.log(cmd, condition)
   switch (cmd.toLowerCase()) {
     case 'move forward':
-      moveForward();
+      await moveForward();
       break;
     case 'turn left':
-      rotateCursor('left');
+      await rotateCursor('left');
       break;
     case 'turn right':
-      rotateCursor('right');
+      await rotateCursor('right');
       break;
     case 'function 1':
       await executeCommandsStepByStep(commandQueueF1);
@@ -177,7 +178,7 @@ export async function executeCommand(commandObj) {
 // Befehlsliste zurücksetzen
 export function resetCommands() {
   const queues = [commandQueueF1, commandQueueF2, commandQueueF3];
-
+  executionAborted = false;
   queues.forEach((queue, index) => {
     queue.length = 0;
     updateCommandList(index);
@@ -219,24 +220,30 @@ export async function executeCommandsStepByStep(commandList) {
     if (condition && condition !== 'grey' && !checkCondition(condition)) {
       continue;
     }
-    
-    const currentTile = getTileAt(cursor.x, cursor.y);
+
+    let currentTile = getTileAt(cursor.x, cursor.y);
     console.log(currentTile);
 
-        if (currentTile === TILE_TYPES.VOID) {
+    if (currentTile === TILE_TYPES.VOID) {
       console.log("Abbruch: Cursor im Void");
-      executionAborted = true;
-      break;
-    }
-
-    if (currentTile === TILE_TYPES.GOAL) {
-      showVictoryMessage();
       executionAborted = true;
       break;
     }
 
     await delay(executionSpeed);
     await executeCommand(commandObj);
+    currentTile = getTileAt(cursor.x, cursor.y);
+    if (currentTile === TILE_TYPES.GOAL) {
+      showVictoryMessage();
+      executionAborted = true;
+      break;
+    }
+    if (currentTile === TILE_TYPES.GOAL) {
+      showVictoryMessage();
+      executionAborted = true;
+      break;
+
+    }
 
   }
 }
@@ -245,7 +252,7 @@ export async function executeCommandsStepByStep(commandList) {
 
 export function getTileAt(x, y) {
   if (!currentLevel || !currentLevel.map) return TILE_TYPES.VOID;
-  
+
   const map = currentLevel.map;
   if (map[y] && map[y][x] !== undefined) {
     return map[y][x];
@@ -270,7 +277,7 @@ export function showVictoryMessage() {
   if (nextButton) {
     nextButton.disabled = false;
   }
-  resetCommands();
+
 
 
 }
@@ -292,7 +299,7 @@ export function loadLevelByIndex(index) {
   currentLevelIndex = index;
   const levelKey = levelKeys[currentLevelIndex];
   loadLevel(levelKey);
-  
+
   document.getElementById('next-level-button').disabled = true;
   document.getElementById('message').style.display = "none";
 }
