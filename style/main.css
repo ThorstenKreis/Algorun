@@ -1,7 +1,13 @@
-h1 {
+.header {
   font-weight: bold;
   margin: 0 auto;
+  font-size: 60px;
+  justify-content: center;
+
+  align-items: center;
+  text-align: center;
   color: #c0d3f5;
+  background-color: #000012;
 }
 
 .header {
@@ -9,8 +15,9 @@ h1 {
   justify-content: center;
 }
 body {
-  background-color: #1e1e2e; /* optional */
+  margin-top: 60px;
   font-family: sans-serif;
+  background-color: #1e1e2e;
 }
 
 .window {
@@ -71,7 +78,6 @@ body {
   gap: 10px;
   margin-bottom: 10px;
   padding-left: 10px;
-  
 
   button {
     font-size: 24px;
@@ -80,7 +86,7 @@ body {
     text-align: center;
     line-height: 1;
     border-radius: 8px;
-    
+
     border: 1px solid #aaa;
     background-color: #f0f0f0;
     cursor: pointer;
@@ -96,8 +102,6 @@ body {
 
   color: #001842;
 }
-
-
 
 .setSpeed {
   margin-left: 25px;
@@ -128,7 +132,7 @@ body {
   display: flex;
   gap: 40px;
   flex-wrap: wrap;
-  justify-content: space-evenly;
+  justify-content: center;
 }
 
 .cursor {
@@ -142,10 +146,18 @@ body {
   color: black;
 }
 
-.cursor.up    { transform: rotate(-90deg); }
-.cursor.down  { transform: rotate(90deg); }
-.cursor.left  { transform: rotate(180deg); }
-.cursor.right { transform: rotate(0deg); }
+.cursor.up {
+  transform: rotate(-90deg);
+}
+.cursor.down {
+  transform: rotate(90deg);
+}
+.cursor.left {
+  transform: rotate(180deg);
+}
+.cursor.right {
+  transform: rotate(0deg);
+}
 
 .function_display {
   display: flex;
@@ -157,13 +169,11 @@ body {
   display: flex;
   align-items: center;
   gap: 10px;
-  p{
-    color:#ffffff;
+  p {
+    color: #ffffff;
     font-size: 25px;
   }
 }
-
-
 
 #command-listF1 {
   display: flex;
@@ -207,3 +217,41 @@ body {
   outline-offset: 1px;
 }
 
+#message {
+  padding: 10px;
+  font-weight: bold;
+  color: #c0d3f5;
+  background-color: #1e1e2e; /* z. B. Grün für Erfolg */
+  border-radius: 8px;
+  display: none;
+}
+
+.top-nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: #1e1e2f;
+  display: flex;
+  justify-content: center; /* Zentriert die Links horizontal */
+  gap: 30px;
+  padding: 15px 0;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+  font-family: sans-serif;
+}
+
+.top-nav a {
+  color: #ddd;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 18px;
+  padding: 8px 15px;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.top-nav a:hover {
+  background-color: #333;
+  color: #fff;
+}
