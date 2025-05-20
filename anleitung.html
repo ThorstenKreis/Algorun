@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <title>Steuerungsanleitung – Cursor bewegen</title>
+  <link rel="stylesheet" href="./style/main.css" />
+</head>
+<body>
+
+  <div class="top-nav">
+    <a href="index.html">Start</a>
+  </div>
+
+  <div class="header">Anleitung zur Steuerung</div>
+
+  <div class="level-description">
+    Mit den folgenden Tasten steuerst du den <strong>Cursor</strong> über das Spielfeld.  
+    Der Cursor zeigt stets in eine Richtung (<code>►</code>) und kann sich vorwärts bewegen oder sich drehen.
+  </div>
+
+  <div id="command-buttons">
+    <button data-cmd="move forward">
+      <img src="/Algorun/style/img/Pfeil.png" alt="Vorwärts">
+    </button>
+    <button data-cmd="turn left">
+      <img src="/Algorun/style/img/Pfeil_links.png" alt="Links">
+    </button>
+    <button data-cmd="turn right">
+      <img src="/Algorun/style/img/Pfeil_rechts.png" alt="Rechts">
+    </button>
+    <button data-cmd="function 1" disabled>F1</button>
+    <button data-cmd="function 2" disabled>F2</button>
+    <button data-cmd="function 3" disabled>F3</button>
+  </div>
+
+  <div class="level-description">
+    <strong>Vorwärts:</strong> Der Cursor bewegt sich ein Feld in Blickrichtung weiter.<br/>
+    <strong>Links drehen:</strong> Der Cursor dreht sich 90° gegen den Uhrzeigersinn (↺).<br/>
+    <strong>Rechts drehen:</strong> Der Cursor dreht sich 90° im Uhrzeigersinn (↻).<br/>
+    <strong>F1–F3:</strong> Vorgefertigte Funktionsblöcke, derzeit deaktiviert.
+  </div>
+
+  <div class="level-description" style="margin-top: 30px;">
+    Beispiel: Wenn der Cursor nach rechts zeigt (<code>►</code>) und du <em>Vorwärts</em> drückst, bewegt er sich nach rechts.<br/>
+    Nach einem <em>Links-Dreh</em> zeigt er nach oben (<code>▲</code>) und bewegt sich von dort aus nach oben.
+  </div>
+
+</body>
+</html>
