@@ -132,7 +132,7 @@ nextLevelButton.addEventListener('click', () => {
 function updateButtonColors(colorKey) {
 
 
-  const color = colorMap[colorKey] || "#ccc";
+  const color = colorMap[colorKey] || "#aaa";
   document.querySelectorAll('#command-buttons button').forEach(button => {
     button.style.backgroundColor = color;
     button.style.color = "#000000";
