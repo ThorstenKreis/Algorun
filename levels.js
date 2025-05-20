@@ -14,8 +14,10 @@ level :{map: [
   
 ],
 
-start : { x: 0, y: 0, dir: 'right' },
-    maxCommands: [5]
+    start : { x: 0, y: 0, dir: 'right' },
+    maxCommands: [5],
+    enabledFunctions: [],
+    description: "Nutze F1, um den Weg zur Zielflagge effizient zu erreichen."
 }
 */
 
@@ -25,15 +27,17 @@ export const levels = {
 
             [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
             [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 1, 1, 1, 1, 1, 9, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 1, 1, 1, 1, 1, 9, 0, 0, 0, 0, 0],
             [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
             [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 
 
         ],
 
-        start: { x: 3, y: 2, dir: 'right' },
-        maxCommands: [5]
+        start: { x: 4, y: 2, dir: 'right' },
+        maxCommands: [5],
+        enabledFunctions: [],
+        description: "Unten siehst du die verschiedenen Optionen, mit denen du der Funktion F1 Befehle zuweisen kannst. Benutze '↑', um dich vorwärts zu bewegen."
     },
     2: {
         map: [
@@ -50,24 +54,42 @@ export const levels = {
         ],
 
         start: { x: 5, y: 2, dir: 'right' },
-        maxCommands: [10]
+        maxCommands: [10],
+        enabledFunctions: [],
+        description: "Nutze '↻' oder '↺' für 90° Drehungen."
     },
     3: {
         map: [
 
-            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 9, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 9, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 
 
         ],
 
-        start: { x: 2, y: 2, dir: 'right' },
-        maxCommands: [6, 6]
+        start: { x: 3, y: 2, dir: 'right' },
+        maxCommands: [6, 5],
+        enabledFunctions: ["F2"],
+        description: "Die Felder in F1 reichen nicht aus. Versuche F2 aufzurufen um weitere Befehle ausführen zu können."
     },
     4: {
+        map: [
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 9, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+        ],
+
+        start: { x: 3, y: 2, dir: 'right' },
+        maxCommands: [2, 0, 0],
+        enabledFunctions: ["F1"],
+        description: "Nutze '↑' und rufe die Funktion F1 erneut auf. Diese Vorgehensweise nenn sich Rekursion."
+    },
+    5: {
         map: [
 
             [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -82,21 +104,12 @@ export const levels = {
         ],
 
         start: { x: 2, y: 2, dir: 'right' },
-        maxCommands: [3, 0, 0]
+        maxCommands: [3, 0, 0],
+        enabledFunctions: ["F1"],
+        description: "Grüne Felder stehen für Bedingungen. Befehle mit grüner Markierung werden nur ausgeführt, wenn der Cursor auf einem grünen Feld steht.\nGraue Befehle sind Standard und gelten immer – egal auf welchem Feld."
     },
 
-    5: {
-        map: [
-            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 9, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-        ],
-
-        start: { x: 3, y: 2, dir: 'right' },
-        maxCommands: [2, 0, 0]
-    },
+    
 
     6: {
         map: [
@@ -114,7 +127,9 @@ export const levels = {
         ],
 
         start: { x: 3, y: 8, dir: 'right' },
-        maxCommands: [5, 0, 0]
+        maxCommands: [5, 0, 0],
+        enabledFunctions: ["F1"],
+        description: ""
     },
 
     7: {
@@ -134,7 +149,9 @@ export const levels = {
         ],
 
         start: { x: 2, y: 2, dir: 'right' },
-        maxCommands: [3, 0, 0]
+        maxCommands: [3, 0, 0],
+        enabledFunctions: ["F1"],
+        description: ""
     },
 
     8: {
@@ -154,7 +171,9 @@ export const levels = {
         ],
 
         start: { x: 0, y: 8, dir: 'right' },
-        maxCommands: [7, 0, 0]
+        maxCommands: [7, 0, 0],
+        enabledFunctions: ["F1"],
+        description: ""
     },
     9: {
         map: [
@@ -166,7 +185,9 @@ export const levels = {
         ],
 
         start: { x: 3, y: 2, dir: 'right' },
-        maxCommands: [3, 3, 0]
+        maxCommands: [3, 3, 0],
+        enabledFunctions: ["F1","F2"],
+        description: ""
     },
 
     10: {
@@ -179,7 +200,9 @@ export const levels = {
         ],
 
         start: { x: 3, y: 2, dir: 'right' },
-        maxCommands: [7, 0, 0]
+        maxCommands: [7, 0, 0],
+        enabledFunctions: ["F1"],
+        description: ""
     }
 
 
