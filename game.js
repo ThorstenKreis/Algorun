@@ -22,6 +22,12 @@ export function loadLevel(levelKey) {
   commands.setCurrentLevel(levelData);
   renderLevel(levelData.map, levelData.start);
   generateCommandCells(levelData.maxCommands);
+
+  if (levelData.enabledFunctions) {
+    updateFunctionButtons(levelData.enabledFunctions);
+  }
+  const descElement = document.getElementById("level-description");
+  descElement.textContent = levelData.description || "";
 }
 
 window.loadLevel = loadLevel;
@@ -156,3 +162,16 @@ document.querySelectorAll("#custom-condition-picker .color-option").forEach(opti
     updateButtonColors(selectedCondition);
   });
 });
+
+function updateFunctionButtons(enabledFunctions) {
+    const buttons = document.querySelectorAll('#command-buttons button[data-cmd^="function"]');
+
+    buttons.forEach(btn => {
+        const label = btn.textContent.trim();
+        if (enabledFunctions.includes(label)) {
+            btn.disabled = false;
+        } else {
+            btn.disabled = true;
+        }
+    });
+}
