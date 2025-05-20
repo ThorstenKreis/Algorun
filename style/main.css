@@ -88,7 +88,7 @@ body {
     border-radius: 8px;
 
     border: 1px solid #aaa;
-    background-color: #f0f0f0;
+    background-color: #aaa;
     cursor: pointer;
     transition: background-color 0.2s ease;
   }
