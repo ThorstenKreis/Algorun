@@ -6,9 +6,9 @@ export let TILE_TYPES = { VOID: 0, PATH: 1, GOAL: 9 }
 
 let executionAborted = false;
 const COMMAND_SYMBOLS = {
-  "move forward": '↑',
-  "turn left": '↺',
-  "turn right": '↻',
+  "move forward": '<img src="./style/img/pfeil.png" alt="↑" style="width:30px; height:30px;">',
+  "turn left": '<img src="./style/img/pfeil_links.png" alt="↺" style="width:30px; height:30px;">',
+  "turn right": '<img src="./style/img/pfeil_rechts.png" alt="↻" style="width:30px; height:30px;">',
   "function 1": "F1",
   "function 2": "F2",
   "function 3": "F3",
@@ -117,7 +117,7 @@ export function updateCommandList(funcIndex) {
       const { cmd, condition } = command;
 
       // Symbol setzen
-      cell.textContent = COMMAND_SYMBOLS[cmd] || '?';
+      cell.innerHTML = COMMAND_SYMBOLS[cmd] || '?';
 
       // Farbklassen entfernen und neue setzen
       cell.classList.remove('cond-grey', 'cond-green', 'cond-red', 'cond-blue');
