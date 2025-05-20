@@ -6,9 +6,9 @@ export let TILE_TYPES = { VOID: 0, PATH: 1, GOAL: 9 }
 
 let executionAborted = false;
 const COMMAND_SYMBOLS = {
-  "move forward": '<img src="./style/img/pfeil.png" alt="↑" style="width:30px; height:30px;">',
-  "turn left": '<img src="./style/img/pfeil_links.png" alt="↺" style="width:30px; height:30px;">',
-  "turn right": '<img src="./style/img/pfeil_rechts.png" alt="↻" style="width:30px; height:30px;">',
+  "move forward": '<img src="./style/img/Pfeil.png" alt="↑" style="width:30px; height:30px;">',
+  "turn left": '<img src="./style/img/Pfeil_links.png" alt="↺" style="width:30px; height:30px;">',
+  "turn right": '<img src="./style/img/Pfeil_rechts.png" alt="↻" style="width:30px; height:30px;">',
   "function 1": "F1",
   "function 2": "F2",
   "function 3": "F3",
