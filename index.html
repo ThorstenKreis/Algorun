@@ -20,21 +20,25 @@
     <div class="window">
       <div id="game-root"></div>
 
+      <div id="level-description" class="level-description">
+        <!-- Text wird dynamisch per JS eingefügt -->
+      </div>
       <label for="speed">Geschwindigkeit:</label>
       <select id="speed">
         <option value="600">Langsam</option>
         <option value="300" selected>Mittel</option>
         <option value="100">Schnell</option>
       </select>
+
       <div class="user_controls">
         <div class="user_options">
           <div id="command-buttons">
-            <button data-cmd="move forward">⬆️</button>
-            <button data-cmd="turn left">↪️</button>
-            <button data-cmd="turn right">↩️</button>
-            <button data-cmd="function 1">F1</button>
-            <button data-cmd="function 2">F2</button>
-            <button data-cmd="function 3">F3</button>
+            <button data-cmd="move forward">↑</button>
+            <button data-cmd="turn left">↺</button>
+            <button data-cmd="turn right">↻</button>
+            <button data-cmd="function 1" disabled>F1</button>
+            <button data-cmd="function 2" disabled>F2</button>
+            <button data-cmd="function 3" disabled>F3</button>
           </div>
           <div class="conditionals">
             <label for="condition">Bedingung:</label>
