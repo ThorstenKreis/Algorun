@@ -170,7 +170,7 @@ body {
   align-items: center;
   gap: 10px;
   p {
-    color: #ffffff;
+    color: #c0d3f5;
     font-size: 25px;
   }
 }
@@ -181,16 +181,16 @@ body {
 }
 
 .command-cell.cond-grey {
-  background-color: #d3d3d3;
+  background-color: #aaa;
 }
 .command-cell.cond-green {
-  background-color: #90ee90;
+  background-color: #4caf50;
 }
 .command-cell.cond-red {
-  background-color: #f08080;
+  background-color: #f44336;
 }
 .command-cell.cond-blue {
-  background-color: #add8e6;
+  background-color: #2196f3;
 }
 
 .color-picker {
@@ -275,3 +275,4 @@ body {
   margin: 0 auto;          /* Horizontale Zentrierung */
   text-align: center;      /* Text innerhalb zentrieren (optional) */
 }
+
