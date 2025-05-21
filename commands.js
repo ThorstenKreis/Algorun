@@ -1,5 +1,6 @@
 import { levels } from './levels.js';
-import { loadLevel } from './game.js';
+import { loadLevel} from './game.js';
+
 // Cursor-Objekt hält Position und Richtung
 export let cursor = { x: 0, y: 0, dir: 'up' };
 export let TILE_TYPES = { VOID: 0, PATH: 1, GOAL: 9 }
@@ -16,8 +17,13 @@ const COMMAND_SYMBOLS = {
 };
 
 const levelKeys = Object.keys(levels);
-let currentLevelIndex = 0;
+export let currentLevelIndex = 1;
 let executionSpeed = 300;
+
+export function setCurrentLevelIndex(index) {
+  
+  currentLevelIndex = parseInt(index, 10);
+}
 
 // Cursor nach vorne bewegen
 export function moveForward() {
@@ -136,7 +142,6 @@ export function updateCommandList(funcIndex) {
 
 // Einzelnen Befehl ausführen
 export async function executeCommand(commandObj) {
-  console.log(commandObj)
   let cmd, condition;
 
   if (typeof commandObj === "string") {
@@ -152,7 +157,6 @@ export async function executeCommand(commandObj) {
     console.warn("Ungültiger Befehl:", commandObj);
     return;
   }
-  console.log(cmd, condition)
   switch (cmd.toLowerCase()) {
     case 'move forward':
       await moveForward();
@@ -222,7 +226,7 @@ export async function executeCommandsStepByStep(commandList) {
     }
 
     let currentTile = getTileAt(cursor.x, cursor.y);
-    console.log(currentTile);
+    
 
     if (currentTile === TILE_TYPES.VOID) {
       console.log("Abbruch: Cursor im Void");
@@ -283,8 +287,11 @@ export function showVictoryMessage() {
 }
 
 export function loadNextLevel() {
-  if (currentLevelIndex + 1 < levelKeys.length) {
-    loadLevelByIndex(currentLevelIndex + 1);
+  console.log("anfang loadlevel", currentLevelIndex);
+  currentLevelIndex = Number(currentLevelIndex) + 1;
+  console.log("nach inkrement loadlevel", currentLevelIndex);
+  if (currentLevelIndex  < levelKeys.length) {
+    loadLevelByIndex(currentLevelIndex);
   } else {
     // Optional: Letztes Level erreicht, Button deaktivieren oder Nachricht anzeigen
     const msg = document.getElementById('message');
@@ -295,10 +302,15 @@ export function loadNextLevel() {
 }
 
 export function loadLevelByIndex(index) {
+  console.log("start loadlevelbyindex", index);
   if (index < 0 || index >= levelKeys.length) return;
-  currentLevelIndex = index;
-  const levelKey = levelKeys[currentLevelIndex];
-  loadLevel(levelKey);
+  console.log("vor sercurrentlevvelindex", index);
+  setCurrentLevelIndex(index);
+  console.log("nach sercurrentlevvelindex", index);
+  
+  
+  
+  loadLevel(index);
 
   document.getElementById('next-level-button').disabled = true;
   document.getElementById('message').style.display = "none";
