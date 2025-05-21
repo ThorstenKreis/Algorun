@@ -1,5 +1,6 @@
 import * as commands from './commands.js';
 import { levels } from './levels.js';
+import { setupDragAndDrop } from './drag.js';
 
 
 const gameRoot = document.getElementById("game-root");
@@ -14,10 +15,11 @@ const colorMap = {
   blue: "#2196f3"
 };
 
-let currentLevelKey = 1;
 
 
 export function loadLevel(levelKey) {
+  console.log(levelKey + "levelkey")
+  commands.setCurrentLevelIndex(levelKey);
   const levelData = levels[levelKey];
   commands.setCurrentLevel(levelData);
   renderLevel(levelData.map, levelData.start);
@@ -91,15 +93,7 @@ function generateCommandCells(lst) {
   }
 }
 
-
-
-
-
-loadLevel(currentLevelKey);
-
-
-
-
+loadLevel(commands.currentLevelIndex);
 
 
 
@@ -121,7 +115,9 @@ document.getElementById('reset-button').addEventListener('click', () => {
 
 
 nextLevelButton.addEventListener('click', () => {
+  
   commands.resetCommands();
+  console.log("Vorher:", commands.currentLevelIndex);
   commands.loadNextLevel();
 });
 
