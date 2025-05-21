@@ -202,8 +202,27 @@ export const levels = {
         start: { x: 3, y: 2, dir: 'right' },
         maxCommands: [7, 0, 0],
         enabledFunctions: ["F1"],
-        description: ""
-    }
+        description: "Versuche zunächst das grüne Feld zu erreichen bevor zu zum Ziel gehst."
+    },
 
+    11 :{map: [
 
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 4, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 4, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 4, 4, 0, 0, 0, 0, 0],
+    [0, 0, 4, 4, 4, 4, 4, 3, 4, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+    
+  
+],
+
+    start : { x: 2, y: 6, dir: 'right' },
+    maxCommands: [6],
+    enabledFunctions: ["F1"],
+    description: ""
+}
 }
