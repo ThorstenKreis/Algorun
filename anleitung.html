@@ -1,49 +1,108 @@
 <!DOCTYPE html>
-<html lang="de">
-<head>
-  <meta charset="UTF-8" />
-  <title>Steuerungsanleitung – Cursor bewegen</title>
-  <link rel="stylesheet" href="style/main.css" />
-</head>
-<body>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style/main.css" />
+    <title>Document</title>
+  </head>
+  <body>
+    <nav class="top-nav">
+      <a href="anleitung.html">Anleitung anzeigen</a>
+      <a href="#" onclick="loadLevel(1)">Tutorials</a>
+      <a href="#" onclick="loadLevel(5)">Normale Levels</a>
+      <a href="#" onclick="loadLevel(9)">Schwere Levels</a>
+    </nav>
 
-  <div class="top-nav">
-    <a href="index.html">Start</a>
-  </div>
+    <div class="header">
+      <img src="./style/img/title.png" alt="ALGORUN" width="500" height="250" />
+    </div>
 
-  <div class="header">Anleitung zur Steuerung</div>
+    <div class="window">
+      <div id="game-root"></div>
 
-  <div class="level-description">
-    Mit den folgenden Tasten steuerst du den <strong>Cursor</strong> über das Spielfeld.  
-    Der Cursor zeigt stets in eine Richtung (<code>►</code>) und kann sich vorwärts bewegen oder sich drehen.
-  </div>
+      <div id="level-description" class="level-description">
+        <!-- Text wird dynamisch per JS eingefügt -->
+      </div>
+      <label for="speed">Geschwindigkeit:</label>
+      <select id="speed">
+        <option value="600">Langsam</option>
+        <option value="300" selected>Mittel</option>
+        <option value="100">Schnell</option>
+      </select>
 
-  <div id="command-buttons">
-    <button data-cmd="move forward">
-      <img src="style/img/Pfeil.png" alt="↑" style="width:30px; height:30px;">
-    </button>
-    <button data-cmd="turn left">
-      <img src="style/img/Pfeil_links.png" alt="↺" style="width:30px; height:30px;">
-    </button>
-    <button data-cmd="turn right">
-      <img src="style/img/Pfeil_rechts.png" alt="↻" style="width:30px; height:30px;">
-    </button>
-    <button data-cmd="function 1" disabled>F1</button>
-    <button data-cmd="function 2" disabled>F2</button>
-    <button data-cmd="function 3" disabled>F3</button>
-  </div>
+      <div class="user_controls">
+        <div class="user_options">
+          <div id="command-buttons">
+            <button data-cmd="move forward" draggable="true">
+              <img
+                src="/Algorun/style/img/Pfeil.png"
+                alt="↑"
+                style="width: 30px; height: 30px"
+              />
+            </button>
+            <button data-cmd="turn left" draggable="true">
+              <img
+                src="/Algorun/style/img/Pfeil_links.png"
+                alt="↺"
+                style="width: 30px; height: 30px"
+              />
+            </button>
+            <button data-cmd="turn right" draggable="true">
+              <img
+                src="/Algorun/style/img/Pfeil_rechts.png"
+                alt="↻"
+                style="width: 30px; height: 30px"
+              />
+            </button>
+            <button data-cmd="function 1" disabled draggable="true">F1</button>
+            <button data-cmd="function 2" disabled draggable="true">F2</button>
+            <button data-cmd="function 3" disabled draggable="true">F3</button>
+          </div>
+          <div class="conditionals">
+            <label for="condition">Bedingung:</label>
+            <div id="custom-condition-picker" class="color-picker">
+              <div
+                class="color-option"
+                data-value="grey"
+                style="background-color: grey"
+              ></div>
+              <div
+                class="color-option"
+                data-value="green"
+                style="background-color: green"
+              ></div>
+              <div
+                class="color-option"
+                data-value="red"
+                style="background-color: red"
+              ></div>
+              <div
+                class="color-option"
+                data-value="blue"
+                style="background-color: blue"
+              ></div>
+            </div>
+          </div>
+        </div>
 
-  <div class="level-description">
-    <strong>Vorwärts:</strong> Der Cursor bewegt sich ein Feld in Blickrichtung weiter.<br/>
-    <strong>Links drehen:</strong> Der Cursor dreht sich 90° gegen den Uhrzeigersinn (↺).<br/>
-    <strong>Rechts drehen:</strong> Der Cursor dreht sich 90° im Uhrzeigersinn (↻).<br/>
-    <strong>F1–F3:</strong> Vorgefertigte Funktionsblöcke, derzeit deaktiviert.
-  </div>
+        <div class="function_display" id="function_input">
+          <div class="top-row">
+            <p>F1:</p>
+            <div id="command-listF1"></div>
+            <p>F2:</p>
+            <div id="command-listF2"></div>
+            <p>F3:</p>
+            <div id="command-listF3"></div>
+          </div>
 
-  <div class="level-description" style="margin-top: 30px;">
-    Beispiel: Wenn der Cursor nach rechts zeigt (<code>►</code>) und du <em>Vorwärts</em> drückst, bewegt er sich nach rechts.<br/>
-    Nach einem <em>Links-Dreh</em> zeigt er nach oben (<code>▲</code>) und bewegt sich von dort aus nach oben.
-  </div>
-
-</body>
+          <button id="start-button">▶️ Start</button>
+          <button id="reset-button">🗑️ Zurücksetzen</button>
+        </div>
+      </div>
+    </div>
+    <div id="message" style="display: none"></div>
+    <button id="next-level-button" disabled>Nächstes Level</button>
+    <script type="module" src="game.js"></script>
+  </body>
 </html>
