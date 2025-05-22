@@ -287,10 +287,21 @@ export function showVictoryMessage() {
 }
 
 export function loadNextLevel() {
+  
   console.log("anfang loadlevel", currentLevelIndex);
   currentLevelIndex = Number(currentLevelIndex) + 1;
+  setCurrentLevelIndex(currentLevelIndex);
+  try {
   console.log("nach inkrement loadlevel", currentLevelIndex);
-  if (currentLevelIndex  < levelKeys.length) {
+  console.log("nach inkrement loadlevel_keylength", levelKeys.length);
+  console.log("nach Inkrement loadlevel, currentLevelIndex Typ:", typeof currentLevelIndex);
+  console.log("levelKeys ist ein Array?", Array.isArray(levelKeys));
+  console.log("levelKeys.length Typ:", typeof levelKeys.length);
+  console.log("levelKeys.length Wert:", levelKeys.length);
+} catch (e) {
+  console.error("Fehler bei Logging:", e);
+}
+  if (currentLevelIndex  <= levelKeys.length) {
     loadLevelByIndex(currentLevelIndex);
   } else {
     // Optional: Letztes Level erreicht, Button deaktivieren oder Nachricht anzeigen
@@ -303,7 +314,6 @@ export function loadNextLevel() {
 
 export function loadLevelByIndex(index) {
   console.log("start loadlevelbyindex", index);
-  if (index < 0 || index >= levelKeys.length) return;
   console.log("vor sercurrentlevvelindex", index);
   setCurrentLevelIndex(index);
   console.log("nach sercurrentlevvelindex", index);
