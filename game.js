@@ -1,6 +1,5 @@
 import * as commands from './commands.js';
 import { levels } from './levels.js';
-import { setupDragAndDrop } from './drag.js';
 
 
 const gameRoot = document.getElementById("game-root");
