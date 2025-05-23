@@ -160,6 +160,12 @@ body {
   display: flex;
   flex-direction: column;
   gap: 10px;
+  align-items: flex-end;
+  button {
+    width: 150px;
+    height: 50px;
+    font-size: 16px;
+  }
 }
 
 .function_display .top-row {
