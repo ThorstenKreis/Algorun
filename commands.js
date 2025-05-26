@@ -352,3 +352,16 @@ function checkCondition(condition) {
       return false;
   }
 }
+
+export function removeLastCommand() {
+  const queues = [commandQueueF1, commandQueueF2, commandQueueF3];
+
+  // Durchläuft rückwärts: von F3 zu F1
+  for (let i = queues.length - 1; i >= 0; i--) {
+    if (queues[i].length > 0) {
+      queues[i].pop(); // entfernt letztes Element
+      updateCommandList(i);
+      break;
+    }
+  }
+}
