@@ -107,6 +107,10 @@ document.getElementById('start-button').addEventListener('click', () => {
   commands.executeCommandsStepByStep(commands.commandQueueF1);
 });
 
+document.getElementById('element-button').addEventListener('click', () => {
+  commands.removeLastCommand()
+});
+
 document.getElementById('reset-button').addEventListener('click', () => {
   commands.resetCommands();
 });
