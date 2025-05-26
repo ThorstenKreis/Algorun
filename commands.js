@@ -107,6 +107,7 @@ export function addCommand(commandObj) {
 
 
 // Befehlsliste im DOM aktualisieren
+
 export function updateCommandList(funcIndex) {
 
   const lst = [commandQueueF1, commandQueueF2, commandQueueF3];
@@ -137,6 +138,8 @@ export function updateCommandList(funcIndex) {
     }
   });
 }
+
+
 
 
 
@@ -363,5 +366,38 @@ export function removeLastCommand() {
       updateCommandList(i);
       break;
     }
+  }
+}
+
+const dropTargets = [
+  document.getElementById('command-listF1'),
+  document.getElementById('command-listF2'),
+  document.getElementById('command-listF3')
+];
+
+dropTargets.forEach((target, index) => {
+  target.addEventListener('dragover', event => {
+    event.preventDefault();
+  });
+
+  target.addEventListener('drop', event => {
+    event.preventDefault();
+    const command = event.dataTransfer.getData('text/plain');
+
+    console.log(`DROP erkannt auf Liste F${index + 1}`);
+  console.log(`Übergebenes Kommando:`, command);
+    addCommandToQueue(index, { cmd: command });
+  });
+});
+
+function addCommandToQueue(index, commandObj) {
+  const queues = [commandQueueF1, commandQueueF2, commandQueueF3];
+  const limits = currentLevel.maxCommands;
+
+  if (queues[index].length < limits[index]) {
+    queues[index].push(commandObj);
+    updateCommandList(index);
+  } else {
+    console.warn("Warteschlange voll:", index);
   }
 }
