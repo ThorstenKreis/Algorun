@@ -104,17 +104,26 @@ document.querySelectorAll('#command-buttons button').forEach(button => {
 });
 
 document.getElementById('start-button').addEventListener('click', () => {
+  console.log("Button wurde geklickt!");
   commands.executeCommandsStepByStep(commands.commandQueueF1);
-});
-
-document.getElementById('element-button').addEventListener('click', () => {
-  commands.removeLastCommand()
 });
 
 document.getElementById('reset-button').addEventListener('click', () => {
   commands.resetCommands();
 });
 
+document.getElementById('element-button').addEventListener('click', () => {
+  commands.removeLastCommand()
+});
+
+
+document.querySelectorAll('#command-buttons button').forEach(button => {
+  button.addEventListener('dragstart', event => {
+    if (button.disabled) return;
+    const command = button.getAttribute('data-cmd');
+    event.dataTransfer.setData('text/plain', command);
+  });
+});
 
 
 nextLevelButton.addEventListener('click', () => {
