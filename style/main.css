@@ -86,22 +86,11 @@ body {
 #command-buttons {
   display: flex;
   gap: 10px;
+  margin-top: 20px;
   margin-bottom: 10px;
   padding-left: 10px;
 
-  button {
-    font-size: 24px;
-    width: 50px;
-    height: 50px;
-    text-align: center;
-    line-height: 1;
-    border-radius: 8px;
-
-    border: 1px solid #aaa;
-    background-color: #aaa;
-    cursor: pointer;
-    transition: background-color 0.2s ease;
-  }
+  
 }
 
 #function_input {
@@ -171,12 +160,14 @@ body {
   flex-direction: column;
   gap: 10px;
   align-items: flex-end;
-  button {
+  
+}
+
+.function_display button {
     width: 150px;
     height: 50px;
     font-size: 16px;
   }
-}
 
 .function_display .top-row {
   display: flex;
@@ -268,7 +259,7 @@ body {
   color: #fff;
 }
 
-#command-buttons button:disabled {
+button:disabled {
   opacity: 0.5 !important;
   
 }
@@ -314,12 +305,44 @@ body {
  
 }
 
-#next-level-button{
-    border: 2px saddlebrown;
-  }
+
 
 .box-left {
   display: flex;
   flex-direction: column;
   gap: 16px;
+}
+
+button {
+  box-sizing: border-box;
+  border: none;
+  background-color: #3b82f6;
+  color: #ffffff;
+  border-radius: 10px;
+  font-size: 24px;
+  text-align: center;
+  
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+#next-level-button {
+  font-size: 16px;
+
+}
+
+button:hover {
+  background-color: #2563eb;
+}
+
+button:active {
+  transform: translate(0, 1px); /* Verschiebt den Button 3px nach unten */
+  box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.2); /* Optional: leichter Schatten für 3D-Effekt */
+}
+
+.user_options button {
+  border-radius: 4px;
+  width: 40px;
+  height: 40px;
+
 }
