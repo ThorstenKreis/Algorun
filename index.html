@@ -24,14 +24,21 @@
       <div id="level-description" class="level-description">
         <!-- Text wird dynamisch per JS eingefügt -->
       </div>
-      <label for="speed">Geschwindigkeit:</label>
-      <select id="speed">
-        <option value="600">Langsam</option>
-        <option value="300" selected>Mittel</option>
-        <option value="100">Schnell</option>
-      </select>
+      
 
       <div class="user_controls">
+        <div class="box-left">
+          <label for="speed">Geschwindigkeit:</label>
+        <select id="speed">
+          <option value="600">Langsam</option>
+          <option value="300" selected>Mittel</option>
+          <option value="100">Schnell</option>
+        </select>
+          <div id="message">
+            
+          </div>
+          <button id="next-level-button" disabled>Nächstes Level</button>
+        </div>
         <div class="user_options">
           <div id="command-buttons">
             <button data-cmd="move forward" draggable="true">
@@ -101,9 +108,11 @@
           <button id="reset-button">🗑️ Zurücksetzen</button>
         </div>
       </div>
+      
     </div>
-    <div id="message" style="display: none"></div>
-    <button id="next-level-button" disabled>Nächstes Level</button>
+    
+    
+    
     <script type="module" src="game.js"></script>
   </body>
 </html>
