@@ -1,11 +1,13 @@
 import { levels } from './levels.js';
-import { loadLevel} from './game.js';
+import { loadLevel } from './game.js';
 
-// Cursor-Objekt hält Position und Richtung
 export let cursor = { x: 0, y: 0, dir: 'up' };
 export let TILE_TYPES = { VOID: 0, PATH: 1, GOAL: 9 }
-
+let currentLevel = null;
 let executionAborted = false;
+const levelKeys = Object.keys(levels);
+export let currentLevelIndex = 1;
+let executionSpeed = 300;
 const COMMAND_SYMBOLS = {
   "move forward": '<img src="/Algorun/style/img/Pfeil.png" alt="↑" style="width:30px; height:30px;">',
   "turn left": '<img src="/Algorun/style/img/Pfeil_links.png" alt="↺" style="width:30px; height:30px;">',
@@ -13,44 +15,22 @@ const COMMAND_SYMBOLS = {
   "function 1": "F1",
   "function 2": "F2",
   "function 3": "F3",
-  wait: '⏳'
 };
 
-const levelKeys = Object.keys(levels);
-export let currentLevelIndex = 1;
-let executionSpeed = 300;
-
-export function setCurrentLevelIndex(index) {
-  
+export function setCurrentLevelIndex(index) {  
   currentLevelIndex = parseInt(index, 10);
 }
 
-// Cursor nach vorne bewegen
+// Cursor bewegen
 export function moveForward() {
   switch (cursor.dir) {
     case 'up': cursor.y = Math.max(0, cursor.y - 1); break;
-    case 'down': cursor.y = cursor.y + 1; break;       // evtl. max für Spielfeldgrenze
+    case 'down': cursor.y = cursor.y + 1; break;       
     case 'left': cursor.x = Math.max(0, cursor.x - 1); break;
-    case 'right': cursor.x = cursor.x + 1; break;       // evtl. max für Spielfeldgrenze
+    case 'right': cursor.x = cursor.x + 1; break;       
   }
-
-
   updateCursorPosition();
 }
-
-/* export function setCursor(x, y) {
-    // Entferne vorherigen Cursor
-    document.querySelectorAll('.cursor').forEach(cell => {
-      cell.classList.remove('cursor');
-    });
-  
-    // Finde Zelle mit passender Position
-    const selector = `[data-x="${x}"][data-y="${y}"]`;
-    const cell = document.querySelector(selector);
-    if (cell) {
-      cell.classList.add('cursor');
-    }
-  } */
 
 export function setCursor(x, y, dir) {
   cursor.x = x;
@@ -62,7 +42,6 @@ export function setCursor(x, y, dir) {
 // Cursor-Symbol basierend auf Richtung
 export function getCursorSymbol(dir) {
   return '➤';
-
 }
 
 // Cursor-Rotation
@@ -99,24 +78,15 @@ export function addCommand(commandObj) {
       updateCommandList(i);
       break;
     }
-
   }
-
 }
 
-
-
 // Befehlsliste im DOM aktualisieren
-
 export function updateCommandList(funcIndex) {
-
   const lst = [commandQueueF1, commandQueueF2, commandQueueF3];
-
   const queue = lst[funcIndex];
-
   const funcId = `F${funcIndex + 1}`;
   const cells = document.querySelectorAll(`#command-list${funcId} .command-cell`);
-
 
   cells.forEach((cell, index) => {
     const command = queue[index];
@@ -139,10 +109,6 @@ export function updateCommandList(funcIndex) {
   });
 }
 
-
-
-
-
 // Einzelnen Befehl ausführen
 export async function executeCommand(commandObj) {
   let cmd, condition;
@@ -150,7 +116,6 @@ export async function executeCommand(commandObj) {
   if (typeof commandObj === "string") {
     cmd = commandObj;
     condition = undefined;
-
 
   } else if (commandObj && typeof commandObj === "object") {
     cmd = commandObj.cmd;
@@ -194,7 +159,6 @@ export function resetCommands() {
   cursor.y = currentLevel.start.y;
   cursor.dir = currentLevel.start.dir;
   updateCursorPosition()
-
 }
 
 // Cursor visuell aktualisieren
@@ -227,10 +191,8 @@ export async function executeCommandsStepByStep(commandList) {
     if (condition && condition !== 'grey' && !checkCondition(condition)) {
       continue;
     }
-
     let currentTile = getTileAt(cursor.x, cursor.y);
     
-
     if (currentTile === TILE_TYPES.VOID) {
       console.log("Abbruch: Cursor im Void");
       executionAborted = true;
@@ -249,13 +211,9 @@ export async function executeCommandsStepByStep(commandList) {
       showVictoryMessage();
       executionAborted = true;
       break;
-
     }
-
   }
 }
-
-
 
 export function getTileAt(x, y) {
   if (!currentLevel || !currentLevel.map) return TILE_TYPES.VOID;
@@ -271,7 +229,6 @@ export function setExecutionSpeed(ms) {
   executionSpeed = ms;
 }
 
-
 export function showVictoryMessage() {
   const messageBox = document.getElementById('message');
   const nextButton = document.getElementById('next-level-button');
@@ -284,13 +241,9 @@ export function showVictoryMessage() {
   if (nextButton) {
     nextButton.disabled = false;
   }
-
-
-
 }
 
 export function loadNextLevel() {
-  
   console.log("anfang loadlevel", currentLevelIndex);
   currentLevelIndex = Number(currentLevelIndex) + 1;
   setCurrentLevelIndex(currentLevelIndex);
@@ -307,7 +260,7 @@ export function loadNextLevel() {
   if (currentLevelIndex  <= levelKeys.length) {
     loadLevelByIndex(currentLevelIndex);
   } else {
-    // Optional: Letztes Level erreicht, Button deaktivieren oder Nachricht anzeigen
+    // Letztes Level erreicht, Button deaktivieren oder Nachricht anzeigen
     const msg = document.getElementById('message');
     msg.textContent = "Du hast alle Level geschafft!";
     msg.style.display = "block";
@@ -320,17 +273,11 @@ export function loadLevelByIndex(index) {
   console.log("vor sercurrentlevvelindex", index);
   setCurrentLevelIndex(index);
   console.log("nach sercurrentlevvelindex", index);
-  
-  
-  
   loadLevel(index);
-
   document.getElementById('next-level-button').disabled = true;
   document.getElementById('message').style.display = "none";
 }
-
-let currentLevel = null;
-
+// stellt sicher das currentLevel integer ist
 export function setCurrentLevel(level) {
   currentLevel = level;
 }
@@ -362,7 +309,7 @@ export function removeLastCommand() {
   // Durchläuft rückwärts: von F3 zu F1
   for (let i = queues.length - 1; i >= 0; i--) {
     if (queues[i].length > 0) {
-      queues[i].pop(); // entfernt letztes Element
+      queues[i].pop();
       updateCommandList(i);
       break;
     }
