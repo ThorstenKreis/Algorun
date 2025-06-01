@@ -4,17 +4,13 @@ import { levels } from './levels.js';
 
 const gameRoot = document.getElementById("game-root");
 const nextLevelButton = document.getElementById('next-level-button');
-const conditionSelect = document.getElementById("condition");
-const commandButtons = document.querySelectorAll("#command-buttons button");
-// Mapping Farbe → Farbcode
+let selectedCondition = 'grey';
 const colorMap = {
   grey: "#aaa",
   green: "#4caf50",
   red: "#f44336",
   blue: "#2196f3"
 };
-
-
 
 export function loadLevel(levelKey) {
   console.log(levelKey + "levelkey")
@@ -55,14 +51,9 @@ function renderLevel(level, start) {
         case 9: cellDiv.classList.add("goal"); break;
       }
 
-      // optional: Koordinaten als Datenattribut
       cellDiv.dataset.x = x;
       cellDiv.dataset.y = y;
-
-
-
       gameRoot.appendChild(cellDiv);
-
     });
   });
   commands.cursor.x = start.x;
@@ -74,8 +65,6 @@ function renderLevel(level, start) {
 document.getElementById("speed").addEventListener("change", (e) => {
   commands.setExecutionSpeed(parseInt(e.target.value));
 });
-
-
 
 function generateCommandCells(lst) {
 
@@ -93,8 +82,6 @@ function generateCommandCells(lst) {
 }
 
 loadLevel(commands.currentLevelIndex);
-
-
 
 document.querySelectorAll('#command-buttons button').forEach(button => {
   button.addEventListener('click', () => {
@@ -116,7 +103,6 @@ document.getElementById('element-button').addEventListener('click', () => {
   commands.removeLastCommand()
 });
 
-
 document.querySelectorAll('#command-buttons button').forEach(button => {
   button.addEventListener('dragstart', event => {
     if (button.disabled) return;
@@ -125,17 +111,12 @@ document.querySelectorAll('#command-buttons button').forEach(button => {
   });
 });
 
-
 nextLevelButton.addEventListener('click', () => {
   
   commands.resetCommands();
   console.log("Vorher:", commands.currentLevelIndex);
   commands.loadNextLevel();
 });
-
-
-
-
 
 function updateButtonColors(colorKey) {
 
@@ -157,8 +138,6 @@ document.addEventListener("DOMContentLoaded", () => {
   conditionSelect.addEventListener("change", updateButtonColors);
 });
 updateButtonColors();
-
-let selectedCondition = 'grey'; // Standard
 
 document.querySelectorAll("#custom-condition-picker .color-option").forEach(option => {
   option.addEventListener("click", () => {
