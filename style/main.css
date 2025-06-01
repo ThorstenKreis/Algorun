@@ -11,6 +11,7 @@ border: 2px solid red;
   font-weight: bold;
   margin: 0 auto;
   font-size: 40px;
+  display: flex;
   justify-content: center;
 
   align-items: center;
@@ -19,10 +20,6 @@ border: 2px solid red;
   background-color: #000012;
 }
 
-.header {
-  display: flex;
-  
-}
 body {
   margin-top: 60px;
   font-family: sans-serif;
