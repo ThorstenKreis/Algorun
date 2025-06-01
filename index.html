@@ -4,10 +4,10 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="style/main.css" />
-    <title>Document</title>
+    <title>ALGORUN</title>
   </head>
   <body>
-    <nav class="top-nav">
+    <nav class="nav">
       <a href="anleitung.html">Anleitung anzeigen</a>
       <a href="#" onclick="loadLevel(1)">Tutorials</a>
       <a href="#" onclick="loadLevel(5)">Normale Levels</a>
@@ -18,8 +18,10 @@
       <img src="./style/img/title.png" alt="ALGORUN" width="500" height="250" />
     </div>
 
-    <div class="window">
-      <div id="game-root"></div>
+    
+      <div id="game-root">
+        <!-- Level-grid wird dynamisch per JS eingefügt -->
+      </div>
 
       <div id="level-description" class="level-description">
         <!-- Text wird dynamisch per JS eingefügt -->
@@ -29,13 +31,13 @@
       <div class="user_controls">
         <div class="box-left">
           <label for="speed">Geschwindigkeit:</label>
-        <select id="speed">
-          <option value="600">Langsam</option>
-          <option value="300" selected>Mittel</option>
-          <option value="100">Schnell</option>
-        </select>
+          <select id="speed">
+            <option value="600">Langsam</option>
+            <option value="300" selected>Mittel</option>
+            <option value="100">Schnell</option>
+          </select>
           <div id="message">
-            
+            <!-- Text wird dynamisch per JS eingefügt -->
           </div>
           <button id="next-level-button" disabled>Nächstes Level</button>
         </div>
@@ -93,8 +95,8 @@
           </div>
         </div>
 
-        <div class="function_display" id="function_input">
-          <div class="top-row">
+        <div class="box-right" id="function_input">
+          <div class="functions-display">
             <p>F1:</p>
             <div id="command-listF1"></div>
             <p>F2:</p>
@@ -109,7 +111,7 @@
         </div>
       </div>
       
-    </div>
+    
     
     
     
